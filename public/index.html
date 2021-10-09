@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes</title>
+
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+    <script src="javascripts/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+
+</head>
+<body>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Recipes</a>
+
+    </div>
+  </nav>
+  <div id="container section">
+    <div class="col s6 m4 l3">
+      <h1 id="title"></h1>
+      <h4>Ingredients</h4>
+      <ol id="ingredients"></ol>
+      <h4>Instructions</h4>
+      <ol id="instructions"></ol>
+    </div>
+    <div class="col s12 m6 l3">
+      <input type="text" id="name-text">
+      <h4>Ingredients</h4>
+      <textarea id="ingredients-text"></textarea>
+      <button id="add-ingredient" type="button" class="btn">Add ingredient</button>
+      <h4>instructions</h4>
+      <textarea id="instructions-text"></textarea>
+      <button id="add-instruction" type="button" class="btn">Add instruction</button>
+      <button id="submit" type="submit" class="btn">Submit</button>
+    </div>
+    <br>
+    <input type="file" id="image-input" multiple>
+</div>
+</body>
+</html>
