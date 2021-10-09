@@ -60,9 +60,6 @@ function initializeCode() {
     submitButton.addEventListener("click", function() {
         const text = document.getElementById("name-text");
         const data = { name: text.value, ingredients: ingre_list, instructions: instru_list}
-
-        ing_list.innerHTML = '';
-        ins_list.innerHTML = '';
         fetch("http://localhost:1234/recipe/", {
             method: "post",
             headers: {
@@ -71,18 +68,10 @@ function initializeCode() {
             body: JSON.stringify(data),
             })
             .then(response => response.json())
-            .then((data) => (header.innerHTML = data.name,
-            data.ingredients.forEach(element => {
-                addToList(ing_list, element);
-            }),
-            data.instructions.forEach(element => {
-                addToList(ins_list, element);
-            })
-        ));
-        ingre_list.length = 0;
-        instru_list.length = 0;
-        text.value = "";
-        
+            .then((data) => console.log(data));
+    
+
+        /*
         const formData = new FormData();
         const fileField = document.querySelector('input[type="file"]');
     
@@ -101,12 +90,41 @@ function initializeCode() {
           .catch(error => {
             console.error('Error:', error);
           });
+          */
         }
     );
+    const sBar = document.getElementById('searchBar');
+    sBar.addEventListener('keydown', function onEvent(event) {
+        if (event.key === "Enter") {
+            fetchData(sBar.value);
+            ingre_list.length = 0;
+            instru_list.length = 0;
+            sBar.value = "";
+        }
+    });
+
 };
 
 function addToList(parent, value){
     var ing = document.createElement("li");
     ing.innerHTML = value;
     parent.appendChild(ing);
+}
+
+function fetchData(food){
+    var header = document.getElementById("title");
+    var ing_parent = document.getElementById("ingredients");
+    var ins_parent = document.getElementById("instructions");
+    ing_parent.innerHTML = '';
+    ins_parent.innerHTML = '';
+    fetch("http://localhost:1234/recipe/"+food)
+    .then((response) => response.json())
+    .then((data) => (header.innerHTML = data.name,
+        data.ingredients.forEach(element => {
+            addToList(ing_list, element);
+        }),
+        data.instructions.forEach(element => {
+            addToList(ins_list, element);
+        })));
+    
 }
