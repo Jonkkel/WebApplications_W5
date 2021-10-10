@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 var app = express();
 
-const mongoDB = "mongodb://localhost:27017/testdb";
+const mongoDB = "mongodb://localhost:27017/testdb2";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const db = mongoose.connection;

@@ -65,11 +65,11 @@ function initializeCode() {
             headers: {
                 "Content-type": "application/json"
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(data)
             })
             .then(response => response.json())
             .then((data) => console.log(data));
-    
+            text.value ="";    
 
         /*
         const formData = new FormData();
@@ -95,7 +95,9 @@ function initializeCode() {
     );
     const sBar = document.getElementById('searchBar');
     sBar.addEventListener('keydown', function onEvent(event) {
+        
         if (event.key === "Enter") {
+            console.log("heppis");
             fetchData(sBar.value);
             ingre_list.length = 0;
             instru_list.length = 0;
@@ -119,12 +121,14 @@ function fetchData(food){
     ins_parent.innerHTML = '';
     fetch("http://localhost:1234/recipe/"+food)
     .then((response) => response.json())
-    .then((data) => (header.innerHTML = data.name,
-        data.ingredients.forEach(element => {
-            addToList(ing_list, element);
+    .then((data) => (
+        header.innerHTML = data[0].name,
+        data[0].ingredients.forEach(element => {
+            addToList(ing_parent, element);
         }),
-        data.instructions.forEach(element => {
-            addToList(ins_list, element);
-        })));
+        data[0].instructions.forEach(element => {
+            addToList(ins_parent, element);
+        })
+        ));
     
 }
