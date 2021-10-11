@@ -113,7 +113,7 @@ function initializeCode() {
             veganBox.checked = false;
             ovoBox.checked = false;
             glutenBox.checked = false;
-        /*
+        
         const formData = new FormData();
         const fileField = document.querySelector('input[type="file"]');
     
@@ -132,7 +132,7 @@ function initializeCode() {
           .catch(error => {
             console.error('Error:', error);
           });
-          */
+          
         }
     );
     const sBar = document.getElementById('searchBar');
