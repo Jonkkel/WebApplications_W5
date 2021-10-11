@@ -86,15 +86,16 @@ function initializeCode() {
         const ovoBox = document.getElementById("Ovo");
         const glutenBox = document.getElementById("Gluten-free");
         const catego = [];
-        if(veganBox.checked){
+        if(veganBox != null && veganBox.checked){
             catego.push(diets[0]._id);
         }
-        if(ovoBox.checked){
+        if(ovoBox != null && ovoBox.checked){
             catego.push(diets[1]._id);
         }
-        if(glutenBox.checked){
+        if(glutenBox != null && glutenBox.checked){
             catego.push(diets[2]._id);
         }
+
         console.log(catego);
         const data = { name: text.value, ingredients: ingre_list, instructions: instru_list, categories: catego}
         fetch("http://localhost:1234/recipe/", {
@@ -108,9 +109,11 @@ function initializeCode() {
             .then((data) => console.log(data));
             text.value ="";
             catego.length = 0;
-            veganBox.checked = false;
-            ovoBox.checked = false;
-            glutenBox.checked = false;
+            if (catego.length != 0){
+                veganBox.checked = false;
+                ovoBox.checked = false;
+                glutenBox.checked = false;
+            }
         
         const formData = new FormData();
         const fileField = document.querySelector('input[type="file"]');
