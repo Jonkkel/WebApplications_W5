@@ -82,9 +82,9 @@ function initializeCode() {
 
     submitButton.addEventListener("click", function() {
         const text = document.getElementById("name-text");
-        const veganBox = document.getElementById("Vegan");
-        const ovoBox = document.getElementById("Ovo");
-        const glutenBox = document.getElementById("Gluten-free");
+        const veganBox = document.getElementById(diets[0].name);
+        const ovoBox = document.getElementById(diets[1].name);
+        const glutenBox = document.getElementById(diets[2].name);
         const catego = [];
         if(veganBox != null && veganBox.checked){
             catego.push(diets[0]._id);
