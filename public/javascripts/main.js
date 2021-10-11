@@ -110,7 +110,9 @@ function initializeCode() {
             .then((data) => console.log(data));
             text.value ="";
             catego.length = 0;
-
+            veganBox.checked = false;
+            ovoBox.checked = false;
+            glutenBox.checked = false;
         /*
         const formData = new FormData();
         const fileField = document.querySelector('input[type="file"]');
