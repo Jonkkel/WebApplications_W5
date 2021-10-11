@@ -82,10 +82,13 @@ function initializeCode() {
 
     submitButton.addEventListener("click", function() {
         const text = document.getElementById("name-text");
+        const veganBox;
+        const ovoBox; 
+        const glutenBox; 
         if (diets.length != 0){
-            const veganBox = document.getElementById(diets[0].name);
-            const ovoBox = document.getElementById(diets[1].name);
-            const glutenBox = document.getElementById(diets[2].name);
+            veganBox = document.getElementById(diets[0].name);
+            ovoBox = document.getElementById(diets[1].name);
+            glutenBox = document.getElementById(diets[2].name);
         }
         const catego = [];
         if(veganBox != null && veganBox.checked){
