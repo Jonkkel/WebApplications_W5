@@ -6,22 +6,24 @@ const router = express.Router();
 const fs = require("fs");
 const { connect } = require("http2");
 
-const list = ["Gluten-free", "Vegan", "Ovo"];
-list.forEach(function(item,index){
-    Category.findOne({ name: item}, (err, recipe) => {
-        if(err) return next(err);
-        if(!recipe){
-            new Category({
-                name: item,
-            }).save((err) =>{
-                if(err) return next(err);
-            });
-        }else{
-        }
-    });
-})
+
 
 router.get("/start", (req, res) => {
+
+    const list = ["Gluten-free", "Vegan", "Ovo"];
+    list.forEach(function(item,index){
+        Category.findOne({ name: item}, (err, recipe) => {
+            if(err) return next(err);
+            if(!recipe){
+                new Category({
+                    name: item,
+                }).save((err) =>{
+                    if(err) return next(err);
+                });
+            }else{
+            }
+        });
+    })
     res.json({name: "porridge",
         ingredients: ["50g porridge oats", "350ml milk or water, or a mixture of the two","Greek yogurt, thinned with a little milk and clear honey, to serve."],
         instructions: ["Put 50g porridge oats in a saucepan, pour in 350ml milk or water and sprinkle in a pinch of salt.","Bring to the boil and simmer for 4-5 minutes.",
