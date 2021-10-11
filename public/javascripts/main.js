@@ -137,7 +137,6 @@ function initializeCode() {
     sBar.addEventListener('keydown', function onEvent(event) {
         
         if (event.key === "Enter") {
-            console.log("heppis");
             fetchData(sBar.value);
             ingre_list.length = 0;
             instru_list.length = 0;

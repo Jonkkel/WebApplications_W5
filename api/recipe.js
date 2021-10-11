@@ -6,6 +6,7 @@ const router = express.Router();
 const fs = require("fs");
 const { connect } = require("http2");
 
+/*
 const list = ["Gluten-free", "Vegan", "Ovo"];
 list.forEach(function(item,index){
     Category.findOne({ name: item}, (err, recipe) => {
@@ -19,7 +20,7 @@ list.forEach(function(item,index){
         }else{
         }
     });
-})
+})*/
 
 router.get("/start", (req, res) => {
     res.json({name: "porridge",
