@@ -60,8 +60,6 @@ function initializeCode() {
                 checkBoxParent.appendChild(p)
             }});
     
-    
-    
     const ingre_list = [];
     const instru_list = [];
     const addIngButton = document.getElementById("add-ingredient");
