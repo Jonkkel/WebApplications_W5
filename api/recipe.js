@@ -8,16 +8,36 @@ const { connect } = require("http2");
 
 const list = ["Gluten-free", "Vegan", "Ovo"];
 list.forEach(function(item,index){
-    new Category({name: item}).save(function (err) {
-        if (err) return next(err);
+    Category.findOne({ name: item}, (err, recipe) => {
+        if(err) return next(err);
+        if(!recipe){
+            new Category({
+                name: item,
+            }).save((err) =>{
+                if(err) return next(err);
+            });
+        }else{
+        }
     });
 })
 
-router.get("/porridge", (req, res) => {
+router.get("/start", (req, res) => {
     res.json({name: "porridge",
         ingredients: ["50g porridge oats", "350ml milk or water, or a mixture of the two","Greek yogurt, thinned with a little milk and clear honey, to serve."],
         instructions: ["Put 50g porridge oats in a saucepan, pour in 350ml milk or water and sprinkle in a pinch of salt.","Bring to the boil and simmer for 4-5 minutes.",
     "watch carefully that it doesn’t stick to the bottom of the pan.","Pour into bowls, spoon Greek yogurt, thinned with a little milk, on top and drizzle with honey."]});
+})
+
+router.get("/", (req, res, next) => {
+    Category.find({}, (err, diets) => {
+        
+        if(err) return next(err);
+        if(diets) {
+            return res.json(diets);
+        } else {
+            return res.status(404).send("Not found");
+        }
+    })
 })
 
 router.post("/", (req, res, next) => {
@@ -27,7 +47,8 @@ router.post("/", (req, res, next) => {
             new Recipe({
                 name: req.body.name,
                 ingredients: req.body.ingredients,
-                instructions: req.body.instructions
+                instructions: req.body.instructions,
+                categories: req.body.categories
             }).save((err) =>{
                 if(err) return next(err);
                 return res.send(req.body);
