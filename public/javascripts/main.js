@@ -121,7 +121,7 @@ function initializeCode() {
             glutenBox.checked = false;
         }
         catego.length = 0;
-
+        /*
         const fileField = document.getElementById("camera-file-input");
         const formData = new FormData();
         const image = fileField.files;
@@ -135,7 +135,7 @@ function initializeCode() {
                 body: formData,
             })
             .then(response => response.json())
-
+    */
     const sBar = document.getElementById('searchBar');
     sBar.addEventListener('keydown', function onEvent(event) {
         
