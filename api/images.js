@@ -28,16 +28,7 @@ router.post("", upload.array('image',10), (req, res, next) => {
             }
         });
     }
-
-    Image.find({}, (err, image) => {
-        
-        if(err) return next(err);
-        if(image) {
-            return res.json(image);
-        } else {
-            return res.status(404).send("Not found");
-        }
-    })
+    res.send("gg");
 })
 
 
