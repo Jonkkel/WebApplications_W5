@@ -6,7 +6,8 @@ let recipeSchema = new Schema({
     name: String,
     ingredients: Array,
     instructions: Array,
-    categories: Array
+    categories: Array,
+    images: Array
 });
 
 

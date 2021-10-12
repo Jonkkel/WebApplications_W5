@@ -84,7 +84,27 @@ function initializeCode() {
         const text = document.getElementById("name-text");
         var veganBox = null;
         var ovoBox = null; 
-        var glutenBox = null; 
+        var glutenBox = null;
+        var imageData = new Array;
+
+        const fileField = document.getElementById("camera-file-input");
+        const formData = new FormData();
+        const image = fileField.files;
+        for (let i = 0; i< image.length; i++){
+            formData.append("image", image[i]);
+        }
+        
+        fetch('http://localhost:1234/images', {
+                method : "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then((data) => {
+                for (var d of data){
+                    console.log(d);
+                    imageData.push(d._id);
+                }
+            });
         if (diets.length != 0){
             console.log(diets[0].name);
             veganBox = document.getElementById(diets[0].name);
@@ -103,7 +123,7 @@ function initializeCode() {
         }
 
         console.log(catego);
-        const data = { name: text.value, ingredients: ingre_list, instructions: instru_list, categories: catego}
+        const data = { name: text.value, ingredients: ingre_list, instructions: instru_list, categories: catego, images: imageData}
         fetch("http://localhost:1234/recipe/", {
             method: "post",
             headers: {
@@ -113,35 +133,14 @@ function initializeCode() {
             })
             .then(response => response.json())
             .then((data) => console.log(data));
-            text.value ="";
-            if (catego.length != 0){
-                veganBox.checked = false;
-                ovoBox.checked = false;
-                glutenBox.checked = false;
-            }
-            catego.length = 0;
-        
-        const formData = new FormData();
-        const fileField = document.querySelector('input[type="file"]');
-    
-        for(var i = 0; i < fileField.files.length;i++){
-            formData.append("images",fileField.files[i])
+        text.value ="";
+        if (catego.length != 0){
+            veganBox.checked = false;
+            ovoBox.checked = false;
+            glutenBox.checked = false;
         }
-        
-        fetch('http://localhost:1234/images', {
-            method: 'POST',
-            body: formData,
-          })
-          .then(response => response.json())
-          .then(result => {
-            console.log('Success:', result);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-          
-        }
-    );
+        catego.length = 0;
+
     const sBar = document.getElementById('searchBar');
     sBar.addEventListener('keydown', function onEvent(event) {
         
@@ -151,6 +150,7 @@ function initializeCode() {
             instru_list.length = 0;
             sBar.value = "";
         }
+    });
     });
 
 };

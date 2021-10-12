@@ -24,5 +24,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/recipe", require("./api/recipe.js"));
+app.use("/images", require("./api/images.js"));
 
 module.exports = app;

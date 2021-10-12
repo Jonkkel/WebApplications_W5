@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose");
 const Recipe = require("../models/Recipe");
 const Category = require("../models/Category");
+const Image = require("../models/Image");
 const router = express.Router();
 const fs = require("fs");
 const { connect } = require("http2");
@@ -22,12 +23,15 @@ list.forEach(function(item,index){
     });
 })*/
 
+
+
 router.get("/start", (req, res) => {
     res.json({name: "porridge",
         ingredients: ["50g porridge oats", "350ml milk or water, or a mixture of the two","Greek yogurt, thinned with a little milk and clear honey, to serve."],
         instructions: ["Put 50g porridge oats in a saucepan, pour in 350ml milk or water and sprinkle in a pinch of salt.","Bring to the boil and simmer for 4-5 minutes.",
     "watch carefully that it doesn’t stick to the bottom of the pan.","Pour into bowls, spoon Greek yogurt, thinned with a little milk, on top and drizzle with honey."]});
 })
+
 
 router.get("/", (req, res, next) => {
     Category.find({}, (err, diets) => {
@@ -49,7 +53,8 @@ router.post("/", (req, res, next) => {
                 name: req.body.name,
                 ingredients: req.body.ingredients,
                 instructions: req.body.instructions,
-                categories: req.body.categories
+                categories: req.body.categories,
+                images: req.body.images
             }).save((err) =>{
                 if(err) return next(err);
                 return res.send(req.body);
@@ -60,7 +65,6 @@ router.post("/", (req, res, next) => {
     });
     //res.json(req.body);
 })
-
 
 router.get("/:food", (req, res, next) => {
     const name = req.params.food;
@@ -74,6 +78,10 @@ router.get("/:food", (req, res, next) => {
     });
     //res.json(req.body);*/
 })
+
+
+
+
 
 
 /*
