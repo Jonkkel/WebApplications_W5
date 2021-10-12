@@ -10,12 +10,10 @@ const { connect } = require("http2");
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
-router.post("", upload.array('image',10), (req, res, next) => {
-    let data = [];
-    //console.log(req.files)
+router.post("", upload.array('image'), (req, res, next) => {
     for (var file of req.files){
         Image.findOne({ name: file.originalname}, (err, image) => {
-            if(err);
+            if(err) next(err);;
             if(!image){
                 new Image({
                     name: file.originalname,
@@ -24,12 +22,13 @@ router.post("", upload.array('image',10), (req, res, next) => {
                     encoding : file.encoding
                 }).save((err) =>{
                     if(err) next(err);
+                    return res.send(req.body);
                 });
+            }else{
+                return res.send(req.body);
             }
         });
     }
-    res.send("gg");
 })
-
 
 module.exports = router;

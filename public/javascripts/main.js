@@ -85,26 +85,7 @@ function initializeCode() {
         var veganBox = null;
         var ovoBox = null; 
         var glutenBox = null;
-        var imageData = new Array;
-
-        const fileField = document.getElementById("camera-file-input");
-        const formData = new FormData();
-        const image = fileField.files;
-        for (let i = 0; i< image.length; i++){
-            formData.append("image", image[i]);
-        }
-        
-        fetch('http://localhost:1234/images', {
-                method : "POST",
-                body: formData,
-            })
-            .then(response => response.json())
-            .then((data) => {
-                for (var d of data){
-                    console.log(d);
-                    imageData.push(d._id);
-                }
-            });
+      
         if (diets.length != 0){
             console.log(diets[0].name);
             veganBox = document.getElementById(diets[0].name);
@@ -123,7 +104,7 @@ function initializeCode() {
         }
 
         console.log(catego);
-        const data = { name: text.value, ingredients: ingre_list, instructions: instru_list, categories: catego, images: imageData}
+        const data = { name: text.value, ingredients: ingre_list, instructions: instru_list, categories: catego}
         fetch("http://localhost:1234/recipe/", {
             method: "post",
             headers: {
@@ -140,6 +121,20 @@ function initializeCode() {
             glutenBox.checked = false;
         }
         catego.length = 0;
+
+        const fileField = document.getElementById("camera-file-input");
+        const formData = new FormData();
+        const image = fileField.files;
+
+        for (let i = 0; i< image.length; i++){
+            formData.append("image", image[i]);
+        }
+        
+        fetch('http://localhost:1234/images', {
+                method : "POST",
+                body: formData,
+            })
+            .then(response => response.json())
 
     const sBar = document.getElementById('searchBar');
     sBar.addEventListener('keydown', function onEvent(event) {
