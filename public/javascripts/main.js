@@ -80,7 +80,7 @@ function initializeCode() {
 
     
 
-    submitButton.addEventListener("click", function() {
+    submitButton.addEventListener("click", async function() {
         const text = document.getElementById("name-text");
         var veganBox = null;
         var ovoBox = null; 
@@ -92,6 +92,7 @@ function initializeCode() {
             glutenBox = document.getElementById(diets[2].name);
         }
         const catego = [];
+        const image = [];
         if(veganBox != null && veganBox.checked){
             catego.push(diets[0]._id);
         }
@@ -103,17 +104,14 @@ function initializeCode() {
         }
 
         console.log(catego);
-        const data = { name: text.value, ingredients: ingre_list, instructions: instru_list, categories: catego}
-        fetch("http://localhost:1234/recipe/", {
+        const data = { name: text.value, ingredients: ingre_list, instructions: instru_list, categories: catego, images: image}
+        await fetch("http://localhost:1234/recipe/", {
             method: "post",
             headers: {
                 "Content-type": "application/json"
             },
             body: JSON.stringify(data)
             })
-            .then(response => response.json())
-            .then((data) => console.log(data));
-            text.value ="";
             if (catego.length != 0){
                 veganBox.checked = false;
                 ovoBox.checked = false;
@@ -122,24 +120,17 @@ function initializeCode() {
             catego.length = 0;
         
         const formData = new FormData();
-        const fileField = document.querySelector('input[type="file"]');
+        const fileField = document.getElementById("camera-file-input");
     
         for(var i = 0; i < fileField.files.length;i++){
-            formData.append("images",fileField.files[i])
+            formData.append("image",fileField.files[i])
         }
-        
+        formData.append("name", text.value);
+        text.value ="";
         fetch('http://localhost:1234/images', {
             method: 'POST',
             body: formData,
           })
-          .then(response => response.json())
-          .then(result => {
-            console.log('Success:', result);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-          
         }
     );
     const sBar = document.getElementById('searchBar');
